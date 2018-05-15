@@ -1,0 +1,4 @@
+---
+fw_rules:
+  - { port: '443/tcp', state : 'enabled', permanent : 'true' }
+  - { port: '80/tcp', state : 'enabled', permanent : 'true' }

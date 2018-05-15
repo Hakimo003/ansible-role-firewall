@@ -1,0 +1,23 @@
+- name : 'Install firewalld'
+  yum :
+    name : '{{ item }}'
+    state : present
+  with_items :
+    - 'firewalld'
+
+- name : Start FireWall SysteCTL if not running
+  shell:
+    systemctl start firewalld.service
+
+- name : Enable service
+  service:
+    name: firewalld
+    enabled: yes
+
+- name : Open HTTP ports
+  firewalld :
+    port : '{{ item.port }}'
+    permanent : '{{ item.permanent }}'
+    state : '{{ item.state }}'
+  with_items : '{{ fw_rules }}'
+  notify: Reload to apply New Rules
